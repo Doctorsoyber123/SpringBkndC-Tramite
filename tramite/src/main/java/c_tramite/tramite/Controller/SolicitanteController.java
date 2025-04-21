@@ -1,13 +1,13 @@
 package c_tramite.tramite.Controller;
 
-import c_tramite.tramite.Model.Solicitante;
+import c_tramite.tramite.Dto.SolicitanteDTO;
 import c_tramite.tramite.Service.SolicitanteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/solicitantes")
@@ -17,17 +17,21 @@ public class SolicitanteController {
     private SolicitanteService solicitanteService;
 
     @GetMapping
-    public List<Solicitante> getAllSolicitantes() {
+    public List<SolicitanteDTO> getAllSolicitantes() {
         return solicitanteService.getAllSolicitantes();
     }
 
     @GetMapping("/{id}")
-    public Optional<Solicitante> getSolicitanteById(@PathVariable BigDecimal id) {
-        return solicitanteService.getSolicitanteById(id);
+    public ResponseEntity<SolicitanteDTO> getSolicitanteById(@PathVariable BigDecimal id) {
+        return solicitanteService.getSolicitanteById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping("/buscar")
-    public Optional<Solicitante> getSolicitanteByDniruc(@RequestParam String dniruc) {
-        return solicitanteService.getSolicitanteByDniruc(dniruc);
+    public ResponseEntity<SolicitanteDTO> getSolicitanteByDniruc(@RequestParam String dniruc) {
+        return solicitanteService.getSolicitanteByDniruc(dniruc)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 }

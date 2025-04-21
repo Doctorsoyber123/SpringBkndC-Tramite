@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-TramiteApplication<tramite>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "c_tramite.tramite.TramiteApplication",
+            "projectName": "tramite",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
