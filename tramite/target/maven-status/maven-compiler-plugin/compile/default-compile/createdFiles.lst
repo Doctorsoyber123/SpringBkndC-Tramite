@@ -1,0 +1,6 @@
+c_tramite\tramite\Model\Solicitante.class
+c_tramite\tramite\ServletInitializer.class
+c_tramite\tramite\Controller\SolicitanteController.class
+c_tramite\tramite\Repository\SolicitanteRepository.class
+c_tramite\tramite\Service\SolicitanteService.class
+c_tramite\tramite\TramiteApplication.class
