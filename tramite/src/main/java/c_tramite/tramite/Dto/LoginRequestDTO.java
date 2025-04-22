@@ -4,10 +4,16 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class LoginRequestDTO {
-    private String user_web;
-    private String clave_web;
+
+    @JsonProperty("user_web")
+    private String userWeb;
+
+    @JsonProperty("clave_web")
+    private String claveWeb;
 }

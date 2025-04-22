@@ -11,17 +11,22 @@ import java.math.BigDecimal;
 @Service
 public class ExpedienteDetailService {
 
-    @Autowired
-    private ExpedienteDetailRepository repository;
+    private final ExpedienteDetailRepository repository;
+    private final ExpedienteDetailMapper mapper;
 
-    public ExpedienteDetailDTO obtenerDetalle(String anoEje, BigDecimal nExpediente) {
-        Object result = repository.getDetalle(anoEje, nExpediente);
-    
-        if (result instanceof Object[]) {
-            return ExpedienteDetailMapper.mapToDto((Object[]) result);
-        } else {
-            return null; // o lanza excepción si quieres asegurar consistencia
-        }
+    @Autowired
+    public ExpedienteDetailService(ExpedienteDetailRepository repository, ExpedienteDetailMapper mapper) {
+        this.repository = repository;
+        this.mapper = mapper;
     }
-   
+
+    public ExpedienteDetailDTO obtenerDetalle(String anoEje, BigDecimal nExpediente, String dni) {
+        Object result = repository.getDetalle(anoEje, nExpediente, dni);
+
+        if (result instanceof Object[] row) {
+            return mapper.mapToDto(row); // Usamos el mapper para Object[]
+        }
+
+        return null;
+    }
 }

@@ -20,8 +20,8 @@ public class AuthController {
     public ResponseEntity<?> login(@RequestBody LoginRequestDTO loginRequest) {
 
         // Obtener los parámetros del DTO
-        String user_web = loginRequest.getUser_web();
-        String clave_web = loginRequest.getClave_web();
+        String user_web = loginRequest.getUserWeb();
+        String clave_web = loginRequest.getClaveWeb();
 
         // Buscar usuario por user_web
         Optional<Solicitante> optionalSolicitante = solicitanteRepository.findByUserWeb(user_web);
@@ -38,25 +38,18 @@ public class AuthController {
         }
 
         // Validar rol (solo 1 y 2)
-        System.out.println("Rol del usuario: '" + solicitante.getRolUser() + "'");  // Añadido para depurar
-        // Validar rol (solo 1 y 2)
+        System.out.println("Rol del usuario: '" + solicitante.getRolUser() + "'");
         if (!"1".equals(solicitante.getRolUser().trim()) && !"2".equals(solicitante.getRolUser().trim())) {
             return ResponseEntity.status(403).body("No tienes permisos para acceder.");
         }
 
-                
-
         // Mensaje personalizado según rol
         String rolUser = solicitante.getRolUser().trim();
-        String message;
-        if ("1".equals(rolUser)) {
-            message = "Bienvenido Solicitante";
-        } else {
-            message = "Bienvenido Administrador";
-        }
-        
-        // Respuesta exitosa
+        String message = "1".equals(rolUser) ? "Bienvenido Solicitante" : "Bienvenido Administrador";
+
+        // Respuesta exitosa con token ficticio
         return ResponseEntity.ok().body(new LoginResponse(
+                "fake-token-123456", // token ficticio
                 message,
                 solicitante.getDniruc(),
                 solicitante.getRolUser()
@@ -64,7 +57,6 @@ public class AuthController {
     }
 
     // Clase para estructurar la respuesta JSON
-    public record LoginResponse(String message, String dniruc, String rol_user) {
+    public record LoginResponse(String token, String message, String dniruc, String rol_user) {
     }
 }
-//aasd
