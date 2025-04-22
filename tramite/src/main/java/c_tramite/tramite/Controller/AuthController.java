@@ -47,13 +47,14 @@ public class AuthController {
                 
 
         // Mensaje personalizado según rol
+        String rolUser = solicitante.getRolUser().trim();
         String message;
-        if ("1".equals(solicitante.getRolUser())) {
-            message = "Bienvenido al módulo de Consulta tu Trámite";
+        if ("1".equals(rolUser)) {
+            message = "Bienvenido Solicitante";
         } else {
             message = "Bienvenido Administrador";
         }
-
+        
         // Respuesta exitosa
         return ResponseEntity.ok().body(new LoginResponse(
                 message,
