@@ -66,3 +66,4 @@ public class AuthController {
     public record LoginResponse(String message, String dniruc, String rol_user) {
     }
 }
+//aasd
